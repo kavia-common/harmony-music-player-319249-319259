@@ -1,8 +1,9 @@
 """
 FastAPI backend entrypoint for Harmony Music Player.
 
-This is minimal runnable boilerplate to ensure the backend container can start
-successfully and provide a basic health check endpoint.
+This file is the canonical (preview) ASGI entrypoint used to run the backend.
+It intentionally defines a *single* health check route at `/health`, and keeps
+Swagger UI enabled so the endpoint can be tested in `/docs`.
 """
 
 from fastapi import FastAPI
@@ -12,6 +13,10 @@ openapi_tags = [
     {"name": "Health", "description": "Service health and readiness endpoints."}
 ]
 
+# NOTE:
+# Swagger UI is enabled by default in FastAPI. We keep defaults (docs_url=/docs,
+# redoc_url=/redoc, openapi_url=/openapi.json) so the health endpoint can be
+# tested via the Swagger UI.
 app = FastAPI(
     title="Harmony Music Player API",
     description="Backend API for a Spotify-like music player (boilerplate).",
@@ -35,7 +40,11 @@ app.add_middleware(
     "/health",
     tags=["Health"],
     summary="Health check",
-    description="Returns a simple OK response to confirm the API is running.",
+    description=(
+        "Returns a simple OK response to confirm the API is running. "
+        "This project intentionally exposes exactly one `/health` endpoint "
+        "from the canonical app entrypoint (`main.py`)."
+    ),
     operation_id="health_check",
 )
 def health_check() -> dict:
