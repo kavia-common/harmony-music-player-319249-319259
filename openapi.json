@@ -1,0 +1,39 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Harmony Music Player API",
+        "description": "Backend API for a Spotify-like music player (boilerplate).",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "tags": [
+                    "Health"
+                ],
+                "summary": "Health check",
+                "description": "Returns a simple OK response to confirm the API is running. This project intentionally exposes exactly one `/health` endpoint from the canonical app entrypoint (`main.py`).",
+                "operationId": "health_check",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "Response Health Check"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Health",
+            "description": "Service health and readiness endpoints."
+        }
+    ]
+}
